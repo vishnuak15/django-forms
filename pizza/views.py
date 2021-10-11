@@ -13,8 +13,11 @@ def order(request):
             filled_form.cleaned_data['topping1'],
             filled_form.cleaned_data['topping2']
             )
+        else:
+            note = 'Order was not created, please try again'
             new_form = PizzaForm()
-            return render(request,'pizza/order.html',{'Pizzaform':new_form,'note':note})            
+            return render(request,'pizza/order.html',{'Pizzaform':new_form,'note':note})
+                    
     else:
         forms = PizzaForm()
         return render(request,'pizza/order.html',{'Pizzaform':forms})
