@@ -10,6 +10,7 @@
 
 <body>
     <h1>Order</h1>
+    <h2>{{ note }}</h2>
     <form action="{% url 'order' %}" method="post">
         {% csrf_token %} {{ Pizzaform.as_p }}
         <input type="submit" value="Order Pizza">
