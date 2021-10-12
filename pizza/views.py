@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from .forms import *
-
+from django.forms import formset_factory
 # Create your views here.
 def home(request):
     return render(request,'pizza/home.html')
 
 def order(request):
+    multiple_form = MultiPizzaForm()
     if request.method == 'POST':
         filled_form = PizzaForm(request.POST)
         if filled_form.is_valid():
+            filled_form.save()
             note = " Thanks for ordering! Your %s %s and %s pizza is on its way!" % (filled_form.cleaned_data['size'],
             filled_form.cleaned_data['topping1'],
             filled_form.cleaned_data['topping2']
@@ -16,8 +18,27 @@ def order(request):
         else:
             note = 'Order was not created, please try again'
         new_form = PizzaForm()
-        return render(request,'pizza/order.html',{'Pizzaform':new_form,'note':note})
+        return render(request,'pizza/order.html',{'Pizzaform':new_form,'note':note,'multiple_form':multiple_form})
                     
     else:
         forms = PizzaForm()
-        return render(request,'pizza/order.html',{'Pizzaform':forms})
+        return render(request,'pizza/order.html',{'Pizzaform':forms, 'multiple_form':multiple_form})
+
+def pizzas(request):#A formset is a layer of abstraction to work with multiple forms on the same page.
+    number_of_pizzas = 2 
+    filled_multiple_pizza_form = MultiPizzaForm(request.GET)
+    if filled_multiple_pizza_form.is_valid():
+        number_of_pizzas = filled_multiple_pizza_form.cleaned_data['number']
+    PizzaFormSet = formset_factory(PizzaForm, extra=number_of_pizzas)
+    formset = PizzaFormSet()
+    if request.method == 'POST':
+        filled_formset = PizzaFormSet(request.POST)
+        if filled_formset.is_valid():
+            for form in filled_formset:
+                print(form.cleaned_data['topping1'])
+            note = 'Pizzas have been Ordered'
+        else:
+            note = 'Order is not created, please try again'
+        return render(request,'pizza/pizzas.html',{'note':note,'formset':formset})
+    else:
+        return render(request,'pizza/pizzas.html',{'formset':formset})
