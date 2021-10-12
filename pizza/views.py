@@ -15,8 +15,8 @@ def order(request):
             )
         else:
             note = 'Order was not created, please try again'
-            new_form = PizzaForm()
-            return render(request,'pizza/order.html',{'Pizzaform':new_form,'note':note})
+        new_form = PizzaForm()
+        return render(request,'pizza/order.html',{'Pizzaform':new_form,'note':note})
                     
     else:
         forms = PizzaForm()
