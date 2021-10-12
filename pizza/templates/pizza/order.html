@@ -11,6 +11,8 @@
 <body>
     <h1>Order</h1>
     <h2>{{ note }}</h2>
+    {% if created_pizza_pk %}
+    <a href="{% url 'edit_order' created_pizza_pk %}">Edit Your Order</a> {% endif %}
     <form action="{% url 'order' %}" method="post">
         <!-- user can select some sort of file/document for uploading to the form -->
         {% csrf_token %} {{ Pizzaform.as_p }}
