@@ -15,18 +15,14 @@ def order(request):
         if filled_form.is_valid():
             created_pizza = filled_form.save()
             created_pizza_pk = created_pizza.id
-            note = " Thanks for ordering! Your %s %s and %s pizza is on its way!" % (filled_form.cleaned_data['size'],
+            note = 'Thanks for ordering! Your %s %s and %s pizza is on its way!' %(filled_form.cleaned_data['size'],
             filled_form.cleaned_data['topping1'],
-            filled_form.cleaned_data['topping2']
-            )
-        else:
-            note = 'Order was not created, please try again'
-        new_form = PizzaForm()
-        return render(request,'pizza/order.html',{'Pizzaform':new_form,'created_pizza_pk':created_pizza_pk,'note':note,'multiple_form':multiple_form})
-                    
+            filled_form.cleaned_data['topping2'],)
+            new_form = PizzaForm()
+            return render(request, 'pizza/order.html', {'created_pizza_pk':created_pizza_pk, 'pizzaform':new_form, 'note':note, 'multiple_form':multiple_form, })
     else:
-        forms = PizzaForm()
-        return render(request,'pizza/order.html',{'Pizzaform':forms, 'multiple_form':multiple_form})
+        form = PizzaForm()
+        return render(request, 'pizza/order.html', {'multiple_form':multiple_form, 'pizzaform':form})
 
 def pizzas(request):#A formset is a layer of abstraction to work with multiple forms on the same page.
     number_of_pizzas = 2 
