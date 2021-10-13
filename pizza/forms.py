@@ -15,3 +15,4 @@ class PizzaForm(forms.ModelForm):
 
 class MultiPizzaForm(forms.Form):
     number = forms.IntegerField(min_value=2,max_value=6)
+    

@@ -13,7 +13,7 @@
     <h2>{{ note }}</h2>
     {% if created_pizza_pk %}
     <a href="{% url 'edit_order' created_pizza_pk %}">Edit Your Order</a> {% endif %}
-    <form action="{% url 'order' %}" method="post">
+    <form action="{% url 'order' %}" method="post" novalidate>
         <!-- user can select some sort of file/document for uploading to the form -->
         {% csrf_token %} {{ pizzaform.as_p }}
         <input type="submit" value="Order Pizza">
