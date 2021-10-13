@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'pizza/base.html' %} {% load widget_tweaks %} {% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>Vishnu's Garden</h1>
-    <a href="{% url 'order' %}">Order a Pizza</a>
-</body>
-
-</html>
+<h1>Django Forms</h1>
+<a href="{% url 'order' %}">Order a Pizza</a> {% endblock %}
