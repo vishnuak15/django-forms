@@ -1,4 +1,5 @@
-{% extends 'pizza/base.html' %} {% load widget_tweaks %} {% block content %}
-
-<h1>Django Forms</h1>
-<a href="{% url 'order' %}">Order a Pizza</a> {% endblock %}
+{% extends 'pizza/base.html' %} {% load static %} {% block content %}
+<div class="text-center">
+    <img src="{% static 'images.png' %}" class="img-fluid" alt="images.png">
+</div>
+{% endblock %}
